@@ -16,21 +16,21 @@ void ht_print(HashTable* ht){
         return;
     }
     for (int i = 0; i < TABLE_SIZE; i++){
-        printf("%d == %s\n", i, ht->entry[i].value);
+        printf("%d == %s\n", i, ht->entry[i].key);
     }
 }
 
-int hash(char* value){
+int hash(char* str){
     int position = 0;
-    for (int i = 0; i < strlen(value); i++){
-        position += (int)value[i];
+    for (int i = 0; i < strlen(str); i++){
+        position += (int)str[i];
     }
-    position += strlen(value);
+    position += strlen(str);
     position = position % TABLE_SIZE;
     return position;
 }
 
-void ht_add(HashTable* ht, char* value){
+void ht_add(HashTable* ht, char* key){
     if(ht == NULL){
         printf("Hashtable does not exists\n");
         return;
@@ -39,37 +39,53 @@ void ht_add(HashTable* ht, char* value){
         printf("Hashtable is full\n");
         return;
     }
-    if (ht->entry[hash(value)].value != NULL){
-        int start = hash(value);
-        int i = hash(value) + 1;
+    if (ht->entry[hash(key)].key != NULL){
+        int start = hash(key);
+        int i = hash(key) + 1;
         if (i > TABLE_SIZE - 1){
             i = 0;
         }
-        while (i != start && ht->entry[i].value != NULL){
+        while (i != start && ht->entry[i].key != NULL){
             if (i > TABLE_SIZE - 1){
                 i = 0;
             }
             i += 1;
         }
-        ht->entry[i].value = value;
+        ht->entry[i].key = key;
         ht->count += 1;
-        printf("Collision Detected when adding %s\n", value);
+        printf("Collision Detected when adding %s, %d\n", key, hash(key));
         return;
     }
-    ht->entry[hash(value)].value = value;
+    ht->entry[hash(key)].key = key;
     ht->count += 1;
     return;
 }
 
 //NOTE: Hash Table Resizing  can be tricky so tell user hash table is full and ask them to expand hash table.
 
-//Implement first ht_get, then ht_delete. Worry about collision later. 
+//Implement first ht_delete. Worry about Resizing later. 
 
-//Modify it so it returns the position of the string
-char* ht_get(HashTable* ht, int key){
-    if (ht->entry[key].value == NULL){
-        printf("The value is not found :(\n");
-        return "";
+int ht_get(HashTable* ht, char* key){
+    int value = hash(key);
+    if (ht->entry[value].key == NULL){
+        return -1;
     }
-    return ht->entry[key].value;
+    if (strcmp(key, ht->entry[value].key) == 0){
+        return value;
+    }
+    int start = value;
+    value += 1;
+    if (value > TABLE_SIZE - 1){
+            value = 0;
+    }
+    while (value != start && ht->entry[value].key != NULL){
+        if (value > TABLE_SIZE - 1){
+            value = 0;
+        }
+        if (strcmp(key, ht->entry[value].key) == 0){
+            return value;
+        }
+        value += 1;
+    }
+    return -1;
 }

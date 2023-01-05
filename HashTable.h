@@ -4,7 +4,7 @@
 #define TABLE_SIZE 32
 
 typedef struct HashEntry{
-    char* value;
+    char* key;
 }HashEntry;
 
 typedef struct HashTable{
@@ -16,8 +16,8 @@ HashTable* ht_create();
 
 void ht_print(HashTable* ht);
 
-void ht_add(HashTable* ht, char* value);
+void ht_add(HashTable* ht, char* key);
 
-char* ht_get(HashTable* ht, int key);
+int ht_get(HashTable* ht, char* key);
 
 #endif

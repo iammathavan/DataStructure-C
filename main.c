@@ -35,9 +35,12 @@ int main(){
     ht_add(ht, "Orange");
     ht_add(ht, "Table");
     ht_add(ht, "Map");
-    ht_add(ht, "Guys");
+    ht_add(ht, "Guys2");
+    ht_add(ht, "Ronaldo");
+    ht_add(ht, "Messi");
+    ht_add(ht, "Neymar");
     ht_print(ht);
-    printf("%s\n", ht_get(ht, 0));
+    printf("Ht- get returns %d\n", ht_get(ht, "Ronaldo"));
     printf("Num of val in HT are %d\n", ht->count);
 	return 0;
 }
