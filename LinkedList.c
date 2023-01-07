@@ -2,7 +2,11 @@
 #include <stdio.h>
 #include "LinkedList.h"
 
+
 int lenLL(LinkedList* head){
+    /** 
+     *  Returns the length of the List.
+     */
     int count = 0;
     LinkedList* ptr = head;
     while (ptr != NULL){
@@ -14,6 +18,9 @@ int lenLL(LinkedList* head){
 
 
 LinkedList* appendLL(int data, LinkedList* head){
+    /**   
+     * Append the data to the end of the List. 
+     */
 	LinkedList* new_node = NULL;
 	new_node = (LinkedList *)calloc(1, sizeof(LinkedList));
 	new_node->number = data;
@@ -30,6 +37,10 @@ LinkedList* appendLL(int data, LinkedList* head){
 }
 
 LinkedList* insertLL(int data, int place, LinkedList* head){
+    /**   
+     * Insert the data into the place provided in the List. 
+     * place must be >= 0 and < Length of the List.
+     */
     int length = lenLL(head);
     int the_place;
     if (place < 0 || place > length){
@@ -59,6 +70,10 @@ LinkedList* insertLL(int data, int place, LinkedList* head){
 }
 
 LinkedList* removeLL(int value, LinkedList* head){
+    /**   
+     * Delete the value from the List. 
+     * If value is not in the list, it will not delete anything.
+     */
     LinkedList* current = head;
     LinkedList* previous = NULL;
     while(current != NULL && current->number != value){
@@ -81,6 +96,10 @@ LinkedList* removeLL(int value, LinkedList* head){
 }
 
 int indexLL(int value, LinkedList* head){
+    /**   
+     * Return the index of the value in the List. 
+     * If the value is not in the List, it will simply return -1;
+     */
     LinkedList* ptr = head;
     int index = 0;
     while (ptr != NULL && ptr->number != value){
@@ -94,6 +113,9 @@ int indexLL(int value, LinkedList* head){
 }
 
 int countLL(int value, LinkedList* head){
+    /**   
+     * Return the number of times the value appears in the List.
+     */
     LinkedList* ptr = head;
     int count = 0;
     while (ptr != NULL){
@@ -107,6 +129,9 @@ int countLL(int value, LinkedList* head){
 
 
 void printLL(LinkedList* head){
+    /**   
+     * Prints the List in the console.
+     */
 	LinkedList* current = head;
 	while (current != NULL){
 		printf("%d -> ", current->number);
@@ -116,12 +141,17 @@ void printLL(LinkedList* head){
 }
 
 LinkedList* insertion_sortLL(LinkedList* head){
+    /**   
+     * Sort the List in ascending order. 
+     * Uses Insertion sort because it is much faster sort to Linked List than other algorithms.
+     */
     LinkedList* first = head;
     LinkedList* second = NULL;
     while (first != NULL){
         if (first->next != NULL){
             second = first->next;
             while (second != NULL){
+                // To sort Descending order, change '<' symbol below to '>'
                 if (second->number < first->number){
                     int temp = first->number;
                     first->number = second->number;
@@ -137,6 +167,10 @@ LinkedList* insertion_sortLL(LinkedList* head){
 
 
 LinkedList* clearLL(LinkedList* head){
+    /**   
+     * Delete the whole List. 
+     * Recommended to use this function after using the Linked List to free up the memory.
+     */
 	LinkedList* current = head;
 	LinkedList* temp = NULL;
 	while (current != NULL){
