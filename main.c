@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "LinkedList.h"
 #include "HashTable.h"
+#include "BST.h"
 
 int main(){
 // 	LinkedList* head = NULL;
@@ -57,6 +58,24 @@ int main(){
 //     ht = ht_clear(ht);
 //     ht_print(ht);
 //     //printf("The number of items are %d\n", ht->count);
-    
+    BST* bst = NULL;
+    bst = BST_insert(bst, 5);
+    bst = BST_insert(bst, 7);
+    bst = BST_insert(bst, 10);
+    bst = BST_insert(bst, 9);
+    bst = BST_insert(bst, 13);
+    bst = BST_insert(bst, 1);
+    bst = BST_insert(bst, 15);
+    bst = BST_insert(bst, 11);
+    bst = BST_insert(bst, 6);
+    bst = BST_insert(bst, 2);
+    BST_print(bst, 0);
+    BST_print(bst, 0);
+    printf("The search is %d\n", BST_search(bst, 9)->data);
+    BST_sort(bst);
+    printf("The total count is %d\n", BST_count(bst, 0));
+    printf("The height is %d\n", BST_height(bst));
+    bst = BST_free(bst);
+    BST_print(bst, 0);
 	return 0;
 }
